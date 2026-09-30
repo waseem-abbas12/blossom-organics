@@ -231,8 +231,78 @@ export const AdminReviews = () => {
         </div>
       </div>
 
-      {/* Reviews Table */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden">
+      {/* Mobile Reviews Cards View */}
+      <div className="md:hidden space-y-3">
+        {filteredReviews.length === 0 ? (
+          <div className="p-8 text-center text-gray-400 bg-white rounded-xl border border-gray-200">
+            No customer reviews match your filter.
+          </div>
+        ) : (
+          filteredReviews.map((rev) => (
+            <div key={rev.id} className="bg-white rounded-2xl border border-gray-200/80 p-4 space-y-2.5 shadow-xs">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#7b3e1d] to-[#c59b27] text-white flex items-center justify-center font-bold text-xs shrink-0">
+                    {rev.author ? rev.author.charAt(0).toUpperCase() : 'U'}
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-900 text-xs">{rev.author}</div>
+                    <div className="text-[10px] text-gray-500">{rev.city || "Pakistan"}</div>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-0.5 text-amber-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className={`w-3.5 h-3.5 ${i < rev.rating ? 'fill-current' : 'text-gray-200'}`} />
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <span className="inline-block text-[10px] font-bold text-[#7b3e1d] bg-[#fbf5ee] px-2 py-0.5 rounded border border-[#7b3e1d]/15">
+                  {rev.productTitle}
+                </span>
+                <h4 className="text-xs font-bold text-gray-900 leading-snug">"{rev.title}"</h4>
+                <p className="text-[11px] text-gray-600 line-clamp-3 italic">"{rev.content}"</p>
+              </div>
+
+              <div className="pt-2 border-t border-gray-100 flex items-center justify-between">
+                <button
+                  onClick={() => toggleReviewVerified(rev.id)}
+                  className={`inline-flex items-center space-x-1 text-[10px] font-bold px-2 py-1 rounded-full cursor-pointer ${
+                    rev.verified
+                      ? 'text-emerald-700 bg-emerald-50 border border-emerald-200'
+                      : 'text-gray-500 bg-gray-100'
+                  }`}
+                >
+                  <CheckCircle className="w-3 h-3 text-emerald-600" />
+                  <span>{rev.verified ? 'Verified Buyer' : 'Unverified'}</span>
+                </button>
+
+                <div className="flex items-center space-x-1">
+                  <button
+                    onClick={() => handleOpenEdit(rev)}
+                    className="p-1.5 text-gray-700 hover:text-blue-600 bg-gray-100 rounded-lg text-xs flex items-center space-x-1 font-bold"
+                  >
+                    <Edit className="w-3.5 h-3.5" />
+                    <span>Edit</span>
+                  </button>
+                  <button
+                    onClick={() => handleDelete(rev.id, rev.author)}
+                    className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg"
+                    title="Delete"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Desktop Reviews Table */}
+      <div className="hidden md:block bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs text-gray-700">
             <thead className="bg-gray-50 border-b border-gray-200 text-gray-500 font-bold uppercase tracking-wider text-[10px]">

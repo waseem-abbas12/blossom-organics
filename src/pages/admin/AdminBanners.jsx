@@ -138,9 +138,9 @@ export const AdminBanners = () => {
 
           <button
             type="submit"
-            className="px-5 py-2.5 bg-[#1a1a1a] hover:bg-[#7b3e1d] text-white font-bold rounded-xl transition-colors shadow-sm flex items-center space-x-1.5"
+            className="w-full sm:w-auto px-6 py-3 bg-[#1a1a1a] hover:bg-[#7b3e1d] text-white font-bold rounded-xl transition-colors shadow-sm flex items-center justify-center space-x-2 text-xs uppercase tracking-wider active:scale-[0.98]"
           >
-            <Save className="w-3.5 h-3.5" />
+            <Save className="w-4 h-4" />
             <span>Save Announcement</span>
           </button>
         </form>
@@ -251,9 +251,9 @@ export const AdminBanners = () => {
 
         <button
           onClick={handleSaveSlides}
-          className="px-6 py-2.5 bg-[#1a1a1a] hover:bg-[#7b3e1d] text-white font-bold rounded-xl transition-colors shadow-sm flex items-center space-x-1.5 text-xs"
+          className="w-full sm:w-auto px-6 py-3.5 bg-[#1a1a1a] hover:bg-[#7b3e1d] text-white font-bold rounded-xl transition-colors shadow-sm flex items-center justify-center space-x-2 text-xs uppercase tracking-wider active:scale-[0.98]"
         >
-          <Save className="w-3.5 h-3.5" />
+          <Save className="w-4 h-4" />
           <span>Save All Hero Banners</span>
         </button>
       </div>

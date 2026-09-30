@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useStore } from '../../context/StoreContext';
 import { Save, Check, ShieldCheck, Phone, MapPin, Truck } from 'lucide-react';
 
@@ -153,7 +153,7 @@ export const AdminSettings = () => {
         <div className="pt-4 border-t border-gray-100">
           <button
             type="submit"
-            className="px-6 py-3 bg-[#1a1a1a] hover:bg-[#7b3e1d] text-white font-bold rounded-xl transition-colors shadow-sm flex items-center space-x-1.5 text-xs uppercase tracking-wider"
+            className="w-full sm:w-auto px-6 py-3.5 bg-[#1a1a1a] hover:bg-[#7b3e1d] text-white font-bold rounded-xl transition-colors shadow-sm flex items-center justify-center space-x-2 text-xs uppercase tracking-wider active:scale-[0.98]"
           >
             <Save className="w-4 h-4" />
             <span>Save Store Configuration</span>

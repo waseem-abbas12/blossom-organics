@@ -167,8 +167,68 @@ export const AdminProducts = () => {
         </span>
       </div>
 
-      {/* Table */}
-      <div className="bg-white rounded-2xl border border-gray-200/70 shadow-xs overflow-hidden">
+      {/* Mobile Products View (Touch Cards) */}
+      <div className="md:hidden space-y-3.5">
+        {filtered.map(prod => (
+          <div 
+            key={prod.id} 
+            className="bg-white rounded-2xl border border-gray-200/80 p-4 space-y-3 shadow-xs"
+          >
+            <div className="flex items-start space-x-3">
+              <img
+                src={prod.image}
+                alt={prod.title}
+                className="w-16 h-16 object-contain rounded-xl border border-gray-200 bg-gray-50 shrink-0"
+              />
+              <div className="flex-1 min-w-0">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#7b3e1d] bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50">
+                  {prod.category}
+                </span>
+                <h4 className="font-bold text-gray-900 text-xs sm:text-sm mt-1 leading-snug">
+                  {prod.title}
+                </h4>
+                <div className="text-[11px] text-gray-500 mt-0.5">{prod.size || "Standard"}</div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-2.5 border-t border-gray-100 text-xs">
+              <div>
+                <span className="text-[10px] text-gray-400 block">Price (PKR)</span>
+                <span className="font-bold text-gray-900 text-sm">Rs. {prod.price.toLocaleString()}</span>
+              </div>
+
+              <div>
+                <span className="text-[10px] text-gray-400 block">Stock Status</span>
+                <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                  prod.stockCount > 10 ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-600'
+                }`}>
+                  {prod.stockCount} in stock
+                </span>
+              </div>
+
+              <div className="flex items-center space-x-1.5">
+                <button
+                  onClick={() => openEditModal(prod)}
+                  className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl font-bold flex items-center space-x-1 text-xs"
+                >
+                  <Edit2 className="w-3.5 h-3.5" />
+                  <span>Edit</span>
+                </button>
+                <button
+                  onClick={() => handleDelete(prod.id, prod.title)}
+                  className="p-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl"
+                  title="Delete"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop Products Table */}
+      <div className="hidden md:block bg-white rounded-2xl border border-gray-200/70 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-gray-50 text-gray-500 font-bold uppercase tracking-wider text-[10px]">

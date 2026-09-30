@@ -12,7 +12,10 @@ import {
   Eye,
   MessageSquare,
   Star,
-  Video
+  Video,
+  Phone,
+  MessageCircle,
+  MapPin
 } from 'lucide-react';
 
 export const AdminDashboard = () => {
@@ -161,7 +164,72 @@ export const AdminDashboard = () => {
           </Link>
         </div>
 
-        <div className="overflow-x-auto">
+        {/* Mobile Recent Orders Cards */}
+        <div className="md:hidden divide-y divide-gray-100">
+          {orders.slice(0, 5).map(order => {
+            const cleanPhone = (order.phone || '').replace(/[^0-9]/g, '');
+            const waPhone = cleanPhone.startsWith('0') ? '92' + cleanPhone.slice(1) : (cleanPhone.startsWith('92') ? cleanPhone : '92' + cleanPhone);
+            return (
+              <div key={order.id} className="p-4 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono font-bold text-gray-900 text-xs">{order.id}</span>
+                  <select
+                    value={order.status}
+                    onChange={(e) => updateOrderStatus(order.id, e.target.value)}
+                    className={`px-2.5 py-1 rounded-full text-[11px] font-bold border focus:outline-none ${
+                      order.status === 'Delivered' 
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                        : order.status === 'Shipped'
+                        ? 'bg-blue-50 text-blue-700 border-blue-200'
+                        : order.status === 'Processing'
+                        ? 'bg-purple-50 text-purple-700 border-purple-200'
+                        : 'bg-amber-50 text-amber-700 border-amber-200'
+                    }`}
+                  >
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+
+                <div className="flex items-center justify-between text-xs">
+                  <div>
+                    <div className="font-bold text-gray-900">{order.customerName}</div>
+                    <div className="text-[11px] text-gray-500">{order.city || "Pakistan"}</div>
+                  </div>
+                  <div className="text-right">
+                    <span className="font-bold text-[#1a1a1a] block">Rs. {order.total?.toLocaleString()}</span>
+                    <span className="text-[10px] text-emerald-700 font-semibold">{order.paymentMethod}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-2 pt-1">
+                  <a
+                    href={`tel:${order.phone}`}
+                    className="flex-1 py-1.5 px-2 bg-gray-100 text-gray-700 text-[11px] font-semibold rounded-lg flex items-center justify-center space-x-1"
+                  >
+                    <Phone className="w-3 h-3 text-blue-600" />
+                    <span>Call</span>
+                  </a>
+                  <a
+                    href={`https://wa.me/${waPhone}?text=Assalam-o-Alaikum%20${encodeURIComponent(order.customerName)},%20your%20Blossom%20Organics%20order%20(${order.id})%20is%20received!`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-1.5 px-2 bg-emerald-50 text-emerald-700 text-[11px] font-semibold rounded-lg flex items-center justify-center space-x-1"
+                  >
+                    <MessageCircle className="w-3 h-3 text-emerald-600" />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Desktop Table */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-gray-50 text-gray-500 font-bold uppercase tracking-wider text-[10px]">
               <tr>

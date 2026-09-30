@@ -1,6 +1,6 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useStore } from '../../context/StoreContext';
-import { Eye, Printer, X, CheckCircle, Clock, Truck, ShoppingBag } from 'lucide-react';
+import { Eye, Printer, X, CheckCircle, Clock, Truck, ShoppingBag, Phone, MessageCircle, MapPin } from 'lucide-react';
 
 export const AdminOrders = () => {
   const { orders, updateOrderStatus } = useStore();
@@ -44,8 +44,104 @@ export const AdminOrders = () => {
         </div>
       </div>
 
-      {/* Orders Table */}
-      <div className="bg-white rounded-2xl border border-gray-200/70 shadow-xs overflow-hidden">
+      {/* Mobile Orders View (Touch-friendly cards for Phones) */}
+      <div className="md:hidden space-y-3.5">
+        {filteredOrders.length === 0 ? (
+          <div className="p-8 text-center text-gray-500 bg-white rounded-2xl border border-gray-200">
+            No orders found matching "{selectedFilter}" status.
+          </div>
+        ) : (
+          filteredOrders.map(order => {
+            const cleanPhone = (order.phone || '').replace(/[^0-9]/g, '');
+            const waPhone = cleanPhone.startsWith('0') ? '92' + cleanPhone.slice(1) : (cleanPhone.startsWith('92') ? cleanPhone : '92' + cleanPhone);
+            return (
+              <div 
+                key={order.id} 
+                className="bg-white rounded-2xl border border-gray-200/80 p-4 space-y-3 shadow-xs"
+              >
+                {/* Header: ID, Date & Status Dropdown */}
+                <div className="flex items-center justify-between pb-2.5 border-b border-gray-100">
+                  <div>
+                    <span className="font-mono font-black text-gray-900 text-sm block">{order.id}</span>
+                    <span className="text-[10px] text-gray-400 block">{order.date}</span>
+                  </div>
+                  
+                  <select
+                    value={order.status}
+                    onChange={(e) => updateOrderStatus(order.id, e.target.value)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold border focus:outline-none ${
+                      order.status === 'Delivered' 
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                        : order.status === 'Shipped'
+                        ? 'bg-blue-50 text-blue-700 border-blue-300'
+                        : order.status === 'Processing'
+                        ? 'bg-purple-50 text-purple-700 border-purple-300'
+                        : 'bg-amber-50 text-amber-700 border-amber-300'
+                    }`}
+                  >
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+
+                {/* Customer Details & 1-Tap Mobile Actions */}
+                <div className="space-y-1">
+                  <div className="font-bold text-gray-900 text-sm">{order.customerName}</div>
+                  <div className="flex items-center space-x-1 text-xs text-gray-500">
+                    <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                    <span>{order.city || "Pakistan"} • {order.address}</span>
+                  </div>
+
+                  {/* 1-Tap Action Call & WhatsApp Buttons */}
+                  <div className="flex items-center space-x-2 pt-2">
+                    <a
+                      href={`tel:${order.phone}`}
+                      className="flex-1 py-2 px-3 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 transition-colors"
+                    >
+                      <Phone className="w-3.5 h-3.5 text-blue-600" />
+                      <span>Call Customer</span>
+                    </a>
+                    
+                    <a
+                      href={`https://wa.me/${waPhone}?text=Assalam-o-Alaikum%20${encodeURIComponent(order.customerName)},%20your%20Blossom%20Organics%20order%20(${order.id})%20is%20received!`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="py-2 px-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 transition-colors shadow-xs"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      <span>WhatsApp</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Items & Amount */}
+                <div className="p-3 rounded-xl bg-gray-50 border border-gray-100 space-y-1.5 text-xs">
+                  <div className="flex justify-between items-center font-bold text-gray-900">
+                    <span>{order.items?.length || 1} Item(s)</span>
+                    <span className="text-[#7b3e1d] font-black text-sm">Rs. {order.total?.toLocaleString()}</span>
+                  </div>
+                  <div className="text-[11px] text-gray-500 flex justify-between items-center pt-1 border-t border-gray-200/50">
+                    <span>Payment: <strong className="text-gray-700">{order.paymentMethod}</strong></span>
+                    <button
+                      onClick={() => setActiveOrderModal(order)}
+                      className="text-[#7b3e1d] font-bold underline cursor-pointer"
+                    >
+                      View Invoice →
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* Desktop Orders Table */}
+      <div className="hidden md:block bg-white rounded-2xl border border-gray-200/70 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-gray-50 text-gray-500 font-bold uppercase tracking-wider text-[10px]">

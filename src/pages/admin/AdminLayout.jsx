@@ -131,25 +131,49 @@ export const AdminLayout = () => {
       {/* Main Content Area */}
       <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
         {/* Top Navbar */}
-        <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-4 sm:px-8 sticky top-0 z-30">
-          <div className="flex items-center space-x-3">
+        <header className="bg-white border-b border-gray-200 h-14 sm:h-16 flex items-center justify-between px-3 sm:px-8 sticky top-0 z-30 shadow-xs">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 text-gray-600 hover:text-black"
+              className="lg:hidden p-1.5 text-gray-700 hover:text-black rounded-lg hover:bg-gray-100"
+              aria-label="Toggle menu"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
-            <h2 className="text-sm font-bold text-gray-800">
-              Control Panel
-            </h2>
+            <div className="flex items-center space-x-1.5">
+              <span className="text-sm sm:text-base font-serif font-black text-gray-900 uppercase tracking-wider">
+                Blossom
+              </span>
+              <span className="text-[10px] bg-[#c59b27] text-white px-1.5 py-0.5 rounded font-extrabold">
+                ADMIN
+              </span>
+            </div>
           </div>
 
-          <div className="flex items-center space-x-4 text-xs">
-            <span className="flex items-center space-x-1.5 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-bold">
+          <div className="flex items-center space-x-2 sm:space-x-4 text-xs">
+            <Link
+              to="/"
+              target="_blank"
+              className="flex items-center space-x-1 px-2.5 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg text-xs font-bold transition-colors"
+              title="Open storefront"
+            >
+              <Store className="w-3.5 h-3.5 text-[#7b3e1d]" />
+              <span className="hidden xs:inline">Live Store</span>
+              <ExternalLink className="w-3 h-3 text-gray-400" />
+            </Link>
+
+            <span className="hidden sm:flex items-center space-x-1.5 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-bold text-[11px]">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>Store Status: Live</span>
+              <span>Live</span>
             </span>
-            <span className="text-gray-500 hidden sm:inline">admin@blossom.com</span>
+
+            <button
+              onClick={handleLogout}
+              className="p-1.5 text-gray-400 hover:text-rose-600 rounded-lg lg:hidden"
+              title="Sign Out"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
         </header>
 
