@@ -1,0 +1,62 @@
+export const initialVideos = [
+  {
+    id: "vid-1",
+    title: "How to use the 2-Step Routine for Glass Skin",
+    creator: "Dr. Aiman Tariq",
+    city: "Karachi",
+    tag: "Morning & Night Ritual",
+    duration: "0:45",
+    views: "18.4K",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
+    thumbnail: "https://cdn.shopify.com/s/files/1/0031/0296/5795/files/6-StepFacialGlowKit.png?v=1786621465",
+    productId: "prod-duo",
+    productTitle: "The Ultimate Glow Duo (Soap + Cream)",
+    productPrice: 1750,
+    description: "Step-by-step tutorial on washing face with Herbal Soap for 60 seconds followed by gentle pressing of Glow Cream."
+  },
+  {
+    id: "vid-2",
+    title: "Herbal Soap Cold-Process Lather & Acne Cleansing",
+    creator: "Fatima Bilal",
+    city: "Islamabad",
+    tag: "Acne Detox",
+    duration: "0:30",
+    views: "14.2K",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
+    thumbnail: "https://cdn.shopify.com/s/files/1/0031/0296/5795/collections/1_c157e7e3-0555-4a75-8444-ef9ef9d76235.png?v=1759211143",
+    productId: "prod-soap",
+    productTitle: "Organic Herbal Radiance Soap (120g)",
+    productPrice: 650,
+    description: "Watch how rich and creamy the goat milk lather is. Zero burning and calms inflamed acne on cheeks."
+  },
+  {
+    id: "vid-3",
+    title: "Melasma & Dark Spots Fading in 21 Days",
+    creator: "Ayesha Khan",
+    city: "Lahore",
+    tag: "21-Day Transformation",
+    duration: "0:52",
+    views: "29.8K",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
+    thumbnail: "https://cdn.shopify.com/s/files/1/0031/0296/5795/files/DailyGlowTrio.png?v=1786621510",
+    productId: "prod-cream",
+    productTitle: "Organic Glow Nourishing Beauty Cream (50g)",
+    productPrice: 1250,
+    description: "Honest customer review showing before and after 21 days of using Blossom Organic Glow Cream with Kashmiri saffron."
+  },
+  {
+    id: "vid-4",
+    title: "Unboxing The Glow Duo with Free Nationwide Delivery",
+    creator: "Mehwish Naz",
+    city: "Faisalabad",
+    tag: "Unboxing & COD",
+    duration: "0:35",
+    views: "11.6K",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1",
+    thumbnail: "https://cdn.shopify.com/s/files/1/0031/0296/5795/files/TheResetKit.png?v=1786621518",
+    productId: "prod-duo",
+    productTitle: "The Ultimate Glow Duo (Soap + Cream)",
+    productPrice: 1750,
+    description: "Opening parcel delivered via Cash on Delivery in 48 hours. Beautiful secure packaging and fresh botanical scent."
+  }
+];
