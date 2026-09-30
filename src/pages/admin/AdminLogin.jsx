@@ -1,14 +1,18 @@
-﻿import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Lock, Mail, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
 
 export const AdminLogin = () => {
   const navigate = useNavigate();
-  const { adminLogin } = useAuth();
+  const { adminLogin, isAdminLoggedIn } = useAuth();
   const [email, setEmail] = useState("admin@blossom.com");
   const [password, setPassword] = useState("admin123");
   const [error, setError] = useState("");
+
+  if (isAdminLoggedIn) {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
 
   const handleLogin = (e) => {
     e.preventDefault();

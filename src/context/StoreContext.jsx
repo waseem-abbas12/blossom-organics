@@ -110,36 +110,60 @@ export const StoreProvider = ({ children }) => {
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  // Save to localStorage
+  // Safe save to localStorage with quota overflow protection
   useEffect(() => {
-    localStorage.setItem('blossom_products_v2', JSON.stringify(products));
+    try {
+      localStorage.setItem('blossom_products_v2', JSON.stringify(products));
+    } catch (e) {
+      console.warn("Storage quota warning on products:", e);
+    }
   }, [products]);
 
   useEffect(() => {
-    localStorage.setItem('blossom_settings_v2', JSON.stringify(settings));
+    try {
+      localStorage.setItem('blossom_settings_v2', JSON.stringify(settings));
+    } catch (e) {
+      console.warn("Storage quota warning on settings:", e);
+    }
   }, [settings]);
 
   useEffect(() => {
-    localStorage.setItem('blossom_cart', JSON.stringify(cart));
+    try {
+      localStorage.setItem('blossom_cart', JSON.stringify(cart));
+    } catch (e) {
+      console.warn("Storage quota warning on cart:", e);
+    }
   }, [cart]);
 
   useEffect(() => {
-    localStorage.setItem('blossom_wishlist', JSON.stringify(wishlist));
+    try {
+      localStorage.setItem('blossom_wishlist', JSON.stringify(wishlist));
+    } catch (e) {
+      console.warn("Storage quota warning on wishlist:", e);
+    }
   }, [wishlist]);
 
   useEffect(() => {
-    localStorage.setItem('blossom_orders', JSON.stringify(orders));
+    try {
+      localStorage.setItem('blossom_orders', JSON.stringify(orders));
+    } catch (e) {
+      console.warn("Storage quota warning on orders:", e);
+    }
   }, [orders]);
 
   useEffect(() => {
-    localStorage.setItem('blossom_reviews_v2', JSON.stringify(reviews));
+    try {
+      localStorage.setItem('blossom_reviews_v2', JSON.stringify(reviews));
+    } catch (e) {
+      console.warn("Storage quota warning on reviews:", e);
+    }
   }, [reviews]);
 
   useEffect(() => {
     try {
       localStorage.setItem('blossom_videos', JSON.stringify(videos));
     } catch (e) {
-      console.warn("Could not save videos to localStorage:", e);
+      console.warn("Storage quota warning on videos:", e);
     }
   }, [videos]);
 

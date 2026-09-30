@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, Suspense } from 'react';
+import { Link, Outlet, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useStore } from '../../context/StoreContext';
 import { 
@@ -17,6 +17,13 @@ import {
   Store
 } from 'lucide-react';
 
+const AdminContentLoader = () => (
+  <div className="py-16 flex flex-col items-center justify-center space-y-3">
+    <div className="w-8 h-8 border-3 border-[#c59b27]/30 border-t-[#7b3e1d] rounded-full animate-spin"></div>
+    <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Loading Section...</span>
+  </div>
+);
+
 export const AdminLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -24,10 +31,9 @@ export const AdminLayout = () => {
   const { orders, products, reviews, videos } = useStore();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // If not logged in, redirect to login
+  // If not logged in, redirect to login cleanly via React Router Navigate
   if (!isAdminLoggedIn) {
-    navigate('/admin/login');
-    return null;
+    return <Navigate to="/admin/login" replace />;
   }
 
   const navItems = [
@@ -179,7 +185,9 @@ export const AdminLayout = () => {
 
         {/* Page body with padding bottom on mobile */}
         <main className="flex-1 p-3 sm:p-8 pb-24 lg:pb-8">
-          <Outlet />
+          <Suspense fallback={<AdminContentLoader />}>
+            <Outlet />
+          </Suspense>
         </main>
 
         {/* Mobile Bottom Fixed Navigation Bar (App-like control on mobile) */}
